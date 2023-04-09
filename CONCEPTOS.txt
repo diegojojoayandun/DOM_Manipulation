@@ -1,0 +1,36 @@
+DOM(Document Object Model): no es mas que un árbol de nodos en el cual esta representado cada una de las etiquetas HTML que nosotros colocamos en nuestro proyecto.
+
+CSSOM(CSS Object Model): es un conjunto de APIs que permite manipular CSS desde JavaScript. Así como el DOM (Document Object Model) es para HTML, el CSSOM (CSS Object Model) es para CSS. Permite leer y modificar el estilo de CSS de forma dinámica.
+
+Para llegar al dom y cssom ocurre un proceso que se llama El Camino Crítico de Renderización(Critical Rendering Path) es la secuencia de pasos que el navegador realiza para convertir el HTML, CSS y JavaScript en píxeles en la pantalla.
+
+DOM es una web API
+
+API ⇒ Es un puente 🌉
+
+
+MDN Web Docs
+
+Can I use… Support tables for HTML5, CSS3, etc
+
+
+DOM + JS = Web API
+Una web API nos permite conectar el JS con el DOM para poder manejarlo (leer y modificar)
+Actualmente existen más de 70 web APIs, Dom es solo una de ellas
+
+ya existen diferentes propósitos
+Animaciones
+Drag & Drop
+Transmisión de video con web RTC
+Manejo de videojuegos como ser con WebGL
+Incluso pagos sin necesidad de otro servicio
+Debemos hacernos dos preguntas al momento de usar las APIs
+¿Como lo uso?
+MDN contiene bastante información acerca de las webs APIs
+**¿Puedo usarlo?**
+No todas las webs API’s estarán soportadas por todos los navegadores entonces podemos usar caniuse
+Chrome tiene bastante compatibilidad con nuevas APIs
+RESUMEN: Para manejar el DOM mediante JS se debe tomar en cuenta que estaremos usando una web API, cada vez que usemos una de ellas debemos tomar en cuenta dos preguntas de cómo usarlo y si se puede implementar en todos los navegadores o usuarios que deseemos llegar
+
+
+
