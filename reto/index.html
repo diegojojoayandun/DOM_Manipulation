@@ -17,24 +17,10 @@
     <div class="container">
       <h1 class="text-center">Carrito</h1>
       <hr />
-      <div class="row"  id="contenedor-productos">
-        <template id="template-productos">
-          <div class="col-12 col-md-4 mb-3">
-            <div class="card">
-              <img src="..." class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">${title}</h5>
-                <p class="card-text">$ <span>${precio}</span></p>
-                <button class="btn btn-dark">Comprar</button>
-              </div>
-            </div>
-          </div>
-        </template>
-      </div>
-
+      <div class="row" id="contenedor-productos"></div>
 
       <div class="my-5">
-        <h1>Carrito de Compras</h1>
+        <h4>🛒 Carrito de Compras</h4>
         <table class="table">
           <thead>
             <tr>
@@ -47,18 +33,36 @@
           </thead>
           <tbody id="items"></tbody>
         </table>
-        <template id="template-productos-tabla">
-          <th scope="row" id="td-id"></th>
-          <td id="td-title"></td>
-          <td id="td-cantidad"></td>
-          <td>
-            <button class="btn btn-success">+</button>
-            <button class="btn btn-danger">-</button>
-          </td>
-          <td id="td-total"></td>
-        </template>
       </div>
     </div>
+
+    <!-- TEMPLATE PRODUCTOS -->
+    <template id="template-productos">
+      <div class="col-12 col-md-4 mb-3">
+        <div class="card">
+          <img src="..." class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">${title}</h5>
+            <p class="card-text">$ <span>${precio}</span></p>
+            <button class="btn btn-dark">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- TEMPLATE TABLA PRODUCTOS -->
+    <template id="template-productos-tabla">
+      <tr>
+        <th scope="row" id="td-id"></th>
+        <td id="td-title"></td>
+        <td id="td-cantidad"></td>
+        <td>
+          <button class="btn btn-success">+</button>
+          <button class="btn btn-danger">-</button>
+        </td>
+        <td id="td-total"></td>
+      </tr>
+    </template>
 
     <!-- SCRIPTS -->
     <script
