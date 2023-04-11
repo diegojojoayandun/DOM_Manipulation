@@ -20,7 +20,7 @@ fetchData();
 
 // render product cards
 const renderProductCards = (data) => {
-  const contenedorProductos = document.querySelector("#contenedor-productos");
+  const productsContainer = document.querySelector("#products-container");
   const template = document.querySelector("#template-productos").content;
   const fragment = document.createDocumentFragment();
   data.map((item) => {
@@ -31,7 +31,7 @@ const renderProductCards = (data) => {
     const clone = template.cloneNode(true);
     fragment.appendChild(clone);
   });
-  contenedorProductos.appendChild(fragment);
+  productsContainer.appendChild(fragment);
 };
 
 // Add items to shoppin car
@@ -41,18 +41,18 @@ const addToShoppingcard = (data) => {
   // EVENT DELEGATION
   arrayButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
-      const producto = data.find(
+      const product = data.find(
         (item) => item.id === parseInt(button.dataset.id)
       );
-      producto.cantidad = 1;
+      product.cantidad = 1;
 
-      if (shoppingCar.hasOwnProperty(producto.id)) {
-        producto.cantidad = shoppingCar[producto.id].cantidad + 1;
+      if (shoppingCar.hasOwnProperty(product.id)) {
+        product.cantidad = shoppingCar[product.id].cantidad + 1;
         //producto.total = producto.cantidad * producto.precio;
       }
-      producto.total = producto.cantidad * producto.precio;
+      product.total = product.cantidad * product.precio;
 
-      shoppingCar[producto.id] = { ...producto };
+      shoppingCar[product.id] = { ...product };
 
       renderTabla();
     });
@@ -129,7 +129,7 @@ const renderFooter = () => {
 
   if (Object.keys(shoppingCar).length === 0) {
     footer.innerHTML = `
-        <th scope="row" colspan="5">Carrito vacío con innerHTML</th>
+        <th scope="row" colspan="5">Clear car with innerHTML</th>
         `;
     return;
   }
@@ -155,7 +155,7 @@ const renderFooter = () => {
 
   footer.appendChild(fragment);
 
-  const boton = document.querySelector("#vaciar-carrito");
+  const boton = document.querySelector("#clear-car");
   boton.addEventListener("click", () => {
     shoppingCar = {};
     renderTabla();
