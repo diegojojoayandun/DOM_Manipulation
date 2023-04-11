@@ -78,6 +78,7 @@ const renderTabla = () => {
 
   productosTabla.appendChild(fragment);
 
+  renderFooter();
   buttonActions();
 };
 
@@ -98,8 +99,54 @@ const buttonActions = () => {
     button.addEventListener("click", () => {
       const productToMin = shoppingCar[button.dataset.id];
       productToMin.cantidad--;
-      shoppingCar[button.dataset.id] = { ...productToMin };
+      if (productToMin.cantidad === 0) {
+        delete carrito[button.dataset.id];
+      } else {
+        shoppingCar[button.dataset.id] = { ...productToMin };
+      }
+
       renderTabla();
     });
+  });
+};
+
+const footer = document.querySelector("#footer-shoppingCar");
+
+const renderFooter = () => {
+  footer.innerHTML = "";
+
+  if (Object.keys(shoppingCar).length === 0) {
+    footer.innerHTML = `
+        <th scope="row" colspan="5">Carrito vacío con innerHTML</th>
+        `;
+    return;
+  }
+
+  const template = document.querySelector("#template-footer").content;
+  const fragment = document.createDocumentFragment();
+
+  // sumar cantidad y sumar totales
+  const nCantidad = Object.values(shoppingCar).reduce(
+    (acc, { cantidad }) => acc + cantidad,
+    0
+  );
+  const nPrecio = Object.values(shoppingCar).reduce(
+    (acc, { cantidad, precio }) => acc + cantidad * precio,
+    0
+  );
+  // console.log(nPrecio)
+
+  template.querySelectorAll("td")[0].textContent = nCantidad;
+  template.querySelector("span").textContent = nPrecio;
+
+  const clone = template.cloneNode(true);
+  fragment.appendChild(clone);
+
+  footer.appendChild(fragment);
+
+  const boton = document.querySelector("#vaciar-carrito");
+  boton.addEventListener("click", () => {
+    shoppingCar = {};
+    renderTabla();
   });
 };
