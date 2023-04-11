@@ -1,19 +1,24 @@
 // Credits Ignacio Bluuweb
 // https://bluuweb.github.io/
 
+// Gets the information about products from json file
 const fetchData = async () => {
   try {
     const res = await fetch("api.json");
     const data = await res.json();
     renderProductCards(data);
-    addCarrito(data);
+    addToShoppingcard(data);
   } catch (error) {
     console.log(error);
   }
 };
 
+const itemsTable = document.querySelector("#items");
+const footer = document.querySelector("#footer-shoppingCar");
+let shoppingCar = {};
 fetchData();
 
+// render product cards
 const renderProductCards = (data) => {
   const contenedorProductos = document.querySelector("#contenedor-productos");
   const template = document.querySelector("#template-productos").content;
@@ -29,9 +34,8 @@ const renderProductCards = (data) => {
   contenedorProductos.appendChild(fragment);
 };
 
-let shoppingCar = {};
-
-const addCarrito = (data) => {
+// Add items to shoppin car
+const addToShoppingcard = (data) => {
   const arrayButtons = document.querySelectorAll("button");
 
   // EVENT DELEGATION
@@ -55,8 +59,7 @@ const addCarrito = (data) => {
   });
 };
 
-const productosTabla = document.querySelector("#items");
-
+// Render table which contain the products added
 const renderTabla = () => {
   items.innerHTML = "";
 
@@ -76,12 +79,13 @@ const renderTabla = () => {
     fragment.appendChild(clone);
   });
 
-  productosTabla.appendChild(fragment);
+  itemsTable.appendChild(fragment);
 
   renderFooter();
   buttonActions();
 };
 
+// Action buttons control
 const buttonActions = () => {
   const btnAdd = document.querySelectorAll(".btn-success");
   const btnMin = document.querySelectorAll(".btn-danger");
@@ -90,6 +94,8 @@ const buttonActions = () => {
     button.addEventListener("click", () => {
       const productToAdd = shoppingCar[button.dataset.id];
       productToAdd.cantidad++;
+      productToAdd.total = productToAdd.cantidad * productToAdd.precio;
+
       shoppingCar[button.dataset.id] = { ...productToAdd };
       renderTabla();
     });
@@ -99,8 +105,9 @@ const buttonActions = () => {
     button.addEventListener("click", () => {
       const productToMin = shoppingCar[button.dataset.id];
       productToMin.cantidad--;
+      productToMin.total = productToMin.cantidad * productToMin.precio;
       if (productToMin.cantidad === 0) {
-        delete carrito[button.dataset.id];
+        delete shoppingCar[button.dataset.id];
       } else {
         shoppingCar[button.dataset.id] = { ...productToMin };
       }
@@ -110,8 +117,7 @@ const buttonActions = () => {
   });
 };
 
-const footer = document.querySelector("#footer-shoppingCar");
-
+// render the footer table
 const renderFooter = () => {
   footer.innerHTML = "";
 
@@ -134,7 +140,6 @@ const renderFooter = () => {
     (acc, { cantidad, precio }) => acc + cantidad * precio,
     0
   );
-  // console.log(nPrecio)
 
   template.querySelectorAll("td")[0].textContent = nCantidad;
   template.querySelector("span").textContent = nPrecio;
@@ -146,7 +151,8 @@ const renderFooter = () => {
 
   const boton = document.querySelector("#vaciar-carrito");
   boton.addEventListener("click", () => {
-    shoppingCar = {};
-    renderTabla();
+    console.log(shoppingCar);
+    //shoppingCar = {};
+    //renderTabla();
   });
 };
