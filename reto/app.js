@@ -1,3 +1,6 @@
+// Credits Ignacio Bluuweb
+// https://bluuweb.github.io/
+
 const fetchData = async () => {
   try {
     const res = await fetch("api.json");
