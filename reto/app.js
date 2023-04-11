@@ -86,6 +86,7 @@ const renderTabla = () => {
 };
 
 // Action buttons control
+// Action buttons control
 const buttonActions = () => {
   const btnAdd = document.querySelectorAll(".btn-success");
   const btnMin = document.querySelectorAll(".btn-danger");
@@ -93,26 +94,31 @@ const buttonActions = () => {
   btnAdd.forEach((button) => {
     button.addEventListener("click", () => {
       const productToAdd = shoppingCar[button.dataset.id];
-      productToAdd.cantidad++;
-      productToAdd.total = productToAdd.cantidad * productToAdd.precio;
+      if (productToAdd) {
+        productToAdd.cantidad++;
+        productToAdd.total = productToAdd.cantidad * productToAdd.precio;
 
-      shoppingCar[button.dataset.id] = { ...productToAdd };
-      renderTabla();
+        shoppingCar[button.dataset.id] = { ...productToAdd };
+        renderTabla();
+      }
     });
   });
 
   btnMin.forEach((button) => {
     button.addEventListener("click", () => {
       const productToMin = shoppingCar[button.dataset.id];
-      productToMin.cantidad--;
-      productToMin.total = productToMin.cantidad * productToMin.precio;
-      if (productToMin.cantidad === 0) {
-        delete shoppingCar[button.dataset.id];
-      } else {
-        shoppingCar[button.dataset.id] = { ...productToMin };
-      }
+      if (productToMin && productToMin.cantidad) {
+        productToMin.cantidad--;
+        productToMin.total = productToMin.cantidad * productToMin.precio;
 
-      renderTabla();
+        if (productToMin.cantidad === 0) {
+          delete shoppingCar[button.dataset.id];
+        } else {
+          shoppingCar[button.dataset.id] = { ...productToMin };
+        }
+
+        renderTabla();
+      }
     });
   });
 };
@@ -151,8 +157,7 @@ const renderFooter = () => {
 
   const boton = document.querySelector("#vaciar-carrito");
   boton.addEventListener("click", () => {
-    console.log(shoppingCar);
-    //shoppingCar = {};
-    //renderTabla();
+    shoppingCar = {};
+    renderTabla();
   });
 };
